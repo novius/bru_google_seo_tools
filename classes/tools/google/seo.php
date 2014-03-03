@@ -106,6 +106,12 @@ class Tools_Google_Seo
             return $full_script;
         }
 
+        //Pas de tracking en local ou en préprod
+        if (!EN_PROD) {
+            $full_script = '<!--'.$full_script.'-->';
+            return $full_script;
+        }
+
     }
 
     /**
