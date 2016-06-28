@@ -27,7 +27,7 @@ $config = array(
                                             'use_universal_analytics',
                                             'do_not_track_logged_user',
                                         ),
-                                        EN_PROD ? array() : array('track_dev')),
+                                        defined('EN_PROD') && EN_PROD ? array() : array('track_dev')),
                                 ),
                             ),
                         ),
