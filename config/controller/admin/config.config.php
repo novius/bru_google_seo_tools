@@ -1,4 +1,5 @@
 <?php
+
 $config = array(
     'form_name' => __('Your Google SEO Tools'),
     'tab' => array(
@@ -19,12 +20,14 @@ $config = array(
                             'content' => array(
                                 'view' => 'nos::form/fields',
                                 'params' => array(
-                                    'fields' => array(
-                                        'google_analytics_tag',
-                                        'full_script',
-                                        'use_universal_analytics',
-                                        'do_not_track_logged_user',
-                                    ),
+                                    'fields' => \Arr::merge(
+                                        array(
+                                            'google_analytics_tag',
+                                            'full_script',
+                                            'use_universal_analytics',
+                                            'do_not_track_logged_user',
+                                        ),
+                                        \Fuel::$env == Fuel::PRODUCTION ? array() : array('track_dev')),
                                 ),
                             ),
                         ),
@@ -150,6 +153,14 @@ $config = array(
         ),
         'do_not_track_logged_user' => array(
             'label' => __('Exclure les administrateurs'),
+            'form' => array(
+                'type' => 'checkbox',
+                'value' => '1',
+                'empty' => '0',
+            ),
+        ),
+        'track_dev' => array(
+            'label' => __('Activer en développement'),
             'form' => array(
                 'type' => 'checkbox',
                 'value' => '1',
