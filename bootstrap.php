@@ -1,4 +1,4 @@
-<?
+<?php
 //Event trigger after cache is writed
 Event::register_function('front.response', function($params)
 {
