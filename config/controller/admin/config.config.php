@@ -13,7 +13,7 @@ $config = array(
                         'col_number' => 6,
                         'view' => 'nos::form/expander',
                         'params' => array(
-                            'title'   => __('Paramètre google analitycs'),
+                            'title'   => __('Paramètres Google Analytics'),
                             'options' => array(
                                 'allowExpand' => false,
                             ),
