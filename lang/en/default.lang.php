@@ -3,7 +3,7 @@
 return array(
     'Your Google SEO Tools' => 'Your Google SEO Tools',
     'Paramètres Google Analytics' => 'Google Analytics parameters',
-    'Google webmaster tools' => '',
+    'Google webmaster tools' => 'Google webmaster tools',
     'Paramètres expert' => 'Expert parameter',
     'Tag google analytics' => 'Google Analytics tag',
     'Script entier' => 'Full script',
