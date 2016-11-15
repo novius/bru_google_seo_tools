@@ -9,7 +9,7 @@ return array(
     'Script entier' => 'Full script',
     'Méthode de vérification du site' => 'Website verification method',
     'Contenu de la balise meta' => 'Meta tag content',
-    'OU (utiliser les deux méthodes est inutile)' => 'OR (use these two methods is useless)',
+    'OU (utiliser les deux méthodes est inutile)' => 'OR (using these two methods is useless)',
     'Nom de la page html de vérification' => 'Name of the HTML verification page',
     'Utiliser Universal analytics' => 'Use Universal analytics',
     'Cookie de tracking' => 'Tracking cookie',
