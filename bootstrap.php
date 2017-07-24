@@ -24,21 +24,17 @@ Event::register_function('front.response', function ($params) {
 
     //before head
     $fullScript = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScript();
-    $fullScript = preg_replace('/<!--(.*)-->/Uis', '', $fullScript);
     $fullScriptTagManagerHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptHead();
-    $fullScriptTagManagerHead = preg_replace('/<!--(.*)-->/Uis', '', $fullScriptTagManagerHead);
-
     if (!empty($fullScript) || !empty($fullScriptTagManagerHead)) {
         preg_match("/<\/head>/", $html, $matches);
         if (!empty($matches) && isset($matches[0])) {
-            $html = str_replace($matches[0], "\n".$fullScript.$fullScriptTagManagerHead."\n".$matches[0], $html);
+            $html = str_replace($matches[0], "\n".$fullScript."\n".$fullScriptTagManagerHead."\n".$matches[0], $html);
         }
     }
 
     //after body
     $fullScriptTagManagerBody = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptBody();
     if(empty($fullScriptTagManagerBody)) return false;
-    $fullScriptTagManagerBody = preg_replace('/<!--(.*)-->/Uis', '', $fullScriptTagManagerBody);
     preg_match("/<body[^>]*>/", $html, $matches);
     if (!empty($fullScriptTagManagerBody) && !empty($matches) && isset($matches[0])) {
         $html = str_replace($matches[0], $matches[0]."\n$fullScriptTagManagerBody\n", $html);

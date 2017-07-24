@@ -29,12 +29,11 @@ class Tools_Google_Seo
     public static function getAnalyticsTrackingScript()
     {
         $config = static::getConfig();
-
         if (empty($config)) {
             return '';
         }
 
-        if ($config['full_script'] != '') {
+        if (!empty($config['full_script'])) {
             if (\Str::starts_with($config['full_script'], '<script')) {
                 $fullScript = $config['full_script'];
             } else {
@@ -61,7 +60,7 @@ class Tools_Google_Seo
 
         $fullScript = static::getCodeWithoutComment($fullScript);
 
-        if (!empty($fullScript)) {
+        if (empty($fullScript)) {
             return '';
         } else {
             self::_doNotTrack($fullScript);
