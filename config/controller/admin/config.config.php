@@ -55,7 +55,7 @@ $config = array(
                     ),
                 ),
             ),
-            99 => array(
+            2 => array(
                 'cols' => array(
                     1 => array(
                         'col_number' => 6,
@@ -73,6 +73,31 @@ $config = array(
                                         'label_cookie_tracking',
                                         'tracking_cookie_name',
                                         'tracking_cookie_value',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            3 => array(
+                'cols' => array(
+                    1 => array(
+                        'col_number' => 6,
+                        'view' => 'nos::form/expander',
+                        'params' => array(
+                            'title' => __('Paramètre google tag manager'),
+                            'options' => array(
+                                'allowExpand' => true,
+                                'expanded' => false,
+                            ),
+                            'content' => array(
+                                'view' => 'nos::form/fields',
+                                'params' => array(
+                                    'fields' => array(
+                                        'google_tagmanager_tag',
+                                        'tagmanager_full_script_head',
+                                        'tagmanager_full_script_body',
                                     ),
                                 ),
                             ),
@@ -165,6 +190,24 @@ $config = array(
                 'type' => 'checkbox',
                 'value' => '1',
                 'empty' => '0',
+            ),
+        ),
+        'google_tagmanager_tag' => array(
+            'label' => __('Tag google tag manager'),
+            'form' => array(
+                'type' => 'text',
+            ),
+        ),
+        'tagmanager_full_script_head' => array(
+            'label' => __('Script entier dans le tag head'),
+            'form' => array(
+                'type' => 'textarea',
+            ),
+        ),
+        'tagmanager_full_script_body' => array(
+            'label' => __('Script entier dans le tag body'),
+            'form' => array(
+                'type' => 'textarea',
             ),
         ),
     ),

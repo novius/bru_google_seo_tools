@@ -9,13 +9,15 @@ class Tools_Google_Seo
      *
      * @return String
      */
-    public static function getDomain($context = '') {
+    public static function getDomain($context = '')
+    {
         if (empty($context)) $context = \Nos\Nos::main_controller()->getContext();
         $url = \Nos\Tools_Url::context($context);
         $sHttpProtocol = 'http://';
         if (\Str::starts_with($url, $sHttpProtocol)) $url = substr($url, strlen($sHttpProtocol));
-        preg_match('#^[\w.-]*\.(\w+\.[a-z]{2,6})[\w/._-]*$#',$url,$match);
+        preg_match('#^[\w.-]*\.(\w+\.[a-z]{2,6})[\w/._-]*$#', $url, $match);
         $domain = isset($match[1]) ? $match[1] : '';
+
         return $domain;
     }
 
@@ -24,21 +26,19 @@ class Tools_Google_Seo
      *
      * @return string
      */
-    public static function getAnalyticsTrackingScript() {
+    public static function getAnalyticsTrackingScript()
+    {
+        $config = static::getConfig();
 
-        $config = Controller_Admin_Config::getOptions();
-        $current_context = \Nos\Nos::main_controller()->getPage()->page_context;
-        $config = \Arr::get($config, $current_context);
         if (empty($config)) {
             return '';
         }
 
-        $full_script = '';
         if ($config['full_script'] != '') {
             if (\Str::starts_with($config['full_script'], '<script')) {
-                $full_script = $config['full_script'];
+                $fullScript = $config['full_script'];
             } else {
-                $full_script =  '<script type="text/javascript">'.$config['full_script'].'</script>';
+                $fullScript = '<script type="text/javascript">'.$config['full_script'].'</script>';
             }
         } else {
             $tag = \Arr::get($config, 'google_analytics_tag');
@@ -48,7 +48,7 @@ class Tools_Google_Seo
                 $view = 'bru_google_seo_tools::js_tag_universal_analitycs';
                 $datas = array(
                     'tag' => $tag,
-                    'domain' => self::getDomain($current_context),
+                    'domain' => self::getDomain(),
                 );
             } else {
                 $view = 'bru_google_seo_tools::js_tag';
@@ -56,31 +56,101 @@ class Tools_Google_Seo
                     'tag' => $tag,
                 );
             }
-            $full_script = \View::forge($view, $datas);
+            $fullScript = \View::forge($view, $datas);
         }
 
-        if ($full_script === '') {
+        $fullScript = static::getCodeWithoutComment($fullScript);
+
+        if (!empty($fullScript)) {
             return '';
         } else {
-            self::_doNotTrack($full_script);
-            return (string)$full_script;
+            self::_doNotTrack($fullScript);
+
+            return (string) $fullScript;
         }
+    }
+
+    /**
+     * Returns the body script tagmanager wich contain the google analytics javascript
+     *
+     * @return string
+     */
+    public static function getTagmanagerTrackingScriptBody()
+    {
+        $config = static::getConfig();
+
+        if (empty($config)) {
+            return '';
+        }
+
+        if ($config['tagmanager_full_script_body'] != '') {
+            if (\Str::starts_with($config['tagmanager_full_script_body'], '<script')) {
+                $fullScript = $config['tagmanager_full_script_body'];
+            } else {
+                $fullScript = '<script type="text/javascript">'.$config['tagmanager_full_script_body'].'</script>';
+            }
+        } else {
+            $tag = \Arr::get($config, 'google_tagmanager_tag');
+            $fullScript = \View::forge('bru_google_seo_tools::js_tagmanager_body', compact('tag'));
+        }
+
+        $fullScript = static::getCodeWithoutComment($fullScript);
+
+        if (!empty($fullScript)) {
+            self::_doNotTrack($fullScript);
+        }
+
+        return (string) $fullScript;
+    }
+
+    /**
+     * Returns the head script tagmanager wich contain the google analytics javascript
+     *
+     * @return string
+     */
+    public static function getTagmanagerTrackingScriptHead()
+    {
+        $config = static::getConfig();
+
+        if (empty($config)) {
+            return '';
+        }
+
+        if ($config['tagmanager_full_script_head'] != '') {
+            if (\Str::starts_with($config['tagmanager_full_script_head'], '<script')) {
+                $fullScript = $config['tagmanager_full_script_head'];
+            } else {
+                $fullScript = '<script type="text/javascript">'.$config['tagmanager_full_script_head'].'</script>';
+            }
+        } else {
+            $tag = \Arr::get($config, 'google_tagmanager_tag');
+            $fullScript = \View::forge('bru_google_seo_tools::js_tagmanager_head', compact('tag'));
+        }
+
+        $fullScript = static::getCodeWithoutComment($fullScript);
+
+        if (!empty($fullScript)) {
+            self::_doNotTrack($fullScript);
+        }
+
+        return (string) $fullScript;
     }
 
     /**
      * @return string
      */
-    public static function getTrackingCookieName() {
+    public static function getTrackingCookieName()
+    {
         //Search the context's config. If there is not : do nothing
-        $config = Controller_Admin_Config::getOptions();
-        $current_context = \Nos\Nos::main_controller()->getPage()->page_context;
-        $config = \Arr::get($config, $current_context);
+        $config = static::getConfig();
+
         if (empty($config)) {
             return '';
         }
 
         //Check if a tracking cookie name is set
         $cookie_name = \Arr::get($config, 'tracking_cookie_name', '');
+
         return $cookie_name;
     }
 
@@ -88,40 +158,40 @@ class Tools_Google_Seo
      * Return the script embed in html comments if we are in a case that user do not want the page to appears in Google Analytics
      * @return string
      */
-    protected  static function _doNotTrack(&$full_script) {
+    protected static function _doNotTrack(&$full_script)
+    {
         //Search the context's config. If there is not : do nothing
-        $config = Controller_Admin_Config::getOptions();
-        $current_context = \Nos\Nos::main_controller()->getPage()->page_context;
-        $config = \Arr::get($config, $current_context);
+        $config = static::getConfig();
 
         //No tracking if it's a preview
         if (\Nos\Nos::main_controller()->isPreview()) {
             $full_script = '<!--'.$full_script.'-->';
+
             return $full_script;
         }
 
         //No script if we do not want logged in users to be tracked
         if (\Arr::get($config, 'do_not_track_logged_user', 0) && \Nos\Auth::check()) {
             $full_script = '<!--'.$full_script.'-->';
+
             return $full_script;
         }
 
         //Pas de tracking en local ou en préprod
         if (\Fuel::$env !== \Fuel::PRODUCTION && !\Arr::get($config, 'track_dev', false)) {
             $full_script = '<!--'.$full_script.'-->';
+
             return $full_script;
         }
-
     }
 
     /**
      * Check if the tracking script must be add after the cache
      * @return bool
      */
-    public static function trackingAfterCache() {
-        $config = Controller_Admin_Config::getOptions();
-        $current_context = \Nos\Nos::main_controller()->getPage()->page_context;
-        $config = \Arr::get($config, $current_context);
+    public static function trackingAfterCache()
+    {
+        $config = static::getConfig();
         if (empty($config)) {
             return false;
         }
@@ -137,5 +207,18 @@ class Tools_Google_Seo
         }
 
         return false;
+    }
+
+    protected static function getConfig()
+    {
+        $config = Controller_Admin_Config::getOptions();
+        $currentContext = \Nos\Nos::main_controller()->getContext();
+
+        return \Arr::get($config, $currentContext);
+    }
+
+    protected static function getCodeWithoutComment($code)
+    {
+        return preg_replace('/<!--(.*)-->/Uis', '', $code);
     }
 }
