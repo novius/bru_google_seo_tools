@@ -17,4 +17,6 @@ return array(
     'Valeur du cookie' => 'Cookie value',
     'Exclure les administrateurs' => 'Exclude administrators',
     'Activer en développement' => 'Activate on development mode',
+    'Script entier avant le tag &lt;&sol;head&gt;' => 'Full script before the &lt;&sol;head&gt; tag',
+    'Script entier après le tag &lt;body&gt;' => 'Full script after the &lt;body&gt; tag',
 );

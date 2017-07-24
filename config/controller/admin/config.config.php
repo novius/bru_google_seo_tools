@@ -199,13 +199,13 @@ $config = array(
             ),
         ),
         'tagmanager_full_script_head' => array(
-            'label' => __('Script entier dans le tag head'),
+            'label' => __('Script entier avant le tag &lt;&sol;head&gt;'),
             'form' => array(
                 'type' => 'textarea',
             ),
         ),
         'tagmanager_full_script_body' => array(
-            'label' => __('Script entier dans le tag body'),
+            'label' => __('Script entier après le tag &lt;body&gt;'),
             'form' => array(
                 'type' => 'textarea',
             ),
