@@ -55,7 +55,7 @@ class Tools_Google_Seo
                     'tag' => $tag,
                 );
             }
-            $fullScript = \View::forge($view, $datas);
+            $fullScript = \View::forge($view, $datas, false);
         }
 
         $fullScript = static::getCodeWithoutComment($fullScript);
@@ -90,7 +90,7 @@ class Tools_Google_Seo
             }
         } else {
             $tag = \Arr::get($config, 'google_tagmanager_tag');
-            $fullScript = \View::forge('bru_google_seo_tools::js_tagmanager_body', compact('tag'));
+            $fullScript = \View::forge('bru_google_seo_tools::js_tagmanager_body', compact('tag'), false);
         }
 
         $fullScript = static::getCodeWithoutComment($fullScript);
@@ -123,7 +123,7 @@ class Tools_Google_Seo
             }
         } else {
             $tag = \Arr::get($config, 'google_tagmanager_tag');
-            $fullScript = \View::forge('bru_google_seo_tools::js_tagmanager_head', compact('tag'));
+            $fullScript = \View::forge('bru_google_seo_tools::js_tagmanager_head', compact('tag'), false);
         }
 
         $fullScript = static::getCodeWithoutComment($fullScript);
