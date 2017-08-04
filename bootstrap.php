@@ -34,7 +34,9 @@ Event::register_function('front.response', function ($params) {
 
     //after body
     $fullScriptTagManagerBody = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptBody();
-    if (empty($fullScriptTagManagerBody)) return false;
+    if (empty($fullScriptTagManagerBody)) {
+        return false;
+    }
     preg_match("/<body[^>]*>/", $html, $matches);
     if (!empty($fullScriptTagManagerBody) && !empty($matches) && isset($matches[0])) {
         $html = str_replace($matches[0], $matches[0]."\n$fullScriptTagManagerBody\n", $html);
@@ -74,7 +76,9 @@ Event::register_function('front.display', function (&$html) {
 
     //after body
     $fullScriptTagManagerBody = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptBody();
-    if (empty($fullScriptTagManagerBody)) return false;
+    if (empty($fullScriptTagManagerBody)) {
+        return false;
+    }
     preg_match("/<body[^>]*>/", $html, $matches);
     if (!empty($fullScriptTagManagerBody) && !empty($matches) && isset($matches[0])) {
         $html = str_replace($matches[0], $matches[0]."\n$fullScriptTagManagerBody\n", $html);
