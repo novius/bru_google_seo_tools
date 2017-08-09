@@ -55,7 +55,7 @@ $config = array(
                     ),
                 ),
             ),
-            2 => array(
+            99 => array(
                 'cols' => array(
                     1 => array(
                         'col_number' => 6,
@@ -80,7 +80,7 @@ $config = array(
                     ),
                 ),
             ),
-            3 => array(
+            100 => array(
                 'cols' => array(
                     1 => array(
                         'col_number' => 6,
@@ -202,12 +202,14 @@ $config = array(
             'label' => __('Script entier avant le tag &lt;&sol;head&gt;'),
             'form' => array(
                 'type' => 'textarea',
+                'rows' => 12
             ),
         ),
         'tagmanager_full_script_body' => array(
             'label' => __('Script entier après le tag &lt;body&gt;'),
             'form' => array(
                 'type' => 'textarea',
+                'rows' => 10
             ),
         ),
     ),
