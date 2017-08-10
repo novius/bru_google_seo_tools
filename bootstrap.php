@@ -1,10 +1,9 @@
 <?php
 //Event trigger after cache is writed
-Event::register_function('front.response', function($params)
-{
+Event::register_function('front.response', function ($params) {
     $html =& $params['content'];
 
-    if(!\Bru\Google\Seo\Tools\Tools_Google_Seo::trackingAfterCache()) {
+    if (!\Bru\Google\Seo\Tools\Tools_Google_Seo::trackingAfterCache()) {
         return false;
     }
 
@@ -23,45 +22,70 @@ Event::register_function('front.response', function($params)
         }
     }
 
+    //before head
+    $fullScript = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScript();
+    $fullScriptTagManagerHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptHead();
+    if (!empty($fullScript) || !empty($fullScriptTagManagerHead)) {
+        preg_match("/<\/head>/", $html, $matches);
+        if (!empty($matches) && isset($matches[0])) {
+            $html = str_replace($matches[0], "\n".$fullScript."\n".$fullScriptTagManagerHead."\n".$matches[0], $html);
+        }
+    }
 
-    $full_script = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScript();
-    if ($full_script === '') return false;
-
-    preg_match("/<\/head>/", $html, $matches);
-    if (!empty($matches) && isset($matches[0])) {
-        $html = str_replace($matches[0], "\n".$full_script."\n".$matches[0], $html);
+    //after body
+    $fullScriptTagManagerBody = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptBody();
+    if (empty($fullScriptTagManagerBody)) {
+        return false;
+    }
+    preg_match("/<body[^>]*>/", $html, $matches);
+    if (!empty($fullScriptTagManagerBody) && !empty($matches) && isset($matches[0])) {
+        $html = str_replace($matches[0], $matches[0]."\n$fullScriptTagManagerBody\n", $html);
     }
 });
-Event::register('front.pageFound', function($params)
-{
+
+Event::register('front.pageFound', function ($params) {
     //Search the context's config. If there is not : do nothing
     $config = Bru\Google\Seo\Tools\Controller_Admin_Config::getOptions();
     $config = \Arr::get($config, \Nos\Nos::main_controller()->getContext());
     if (empty($config)) {
         return false;
     }
+
     if (isset($config['google_site_verification']) && !empty($config['google_site_verification'])) {
         $meta_tag = '<meta name="google-site-verification" content="'.$config['google_site_verification'].'" />';
         \Nos\Nos::main_controller()->addMeta($meta_tag);
     }
 });
+
 //Event trigger before cache is writed
-Event::register_function('front.display', function(&$html)
-{
-    if(\Bru\Google\Seo\Tools\Tools_Google_Seo::trackingAfterCache()) {
+Event::register_function('front.display', function (&$html) {
+    if (\Bru\Google\Seo\Tools\Tools_Google_Seo::trackingAfterCache()) {
         return false;
     }
 
-    $full_script = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScript();
-    if ($full_script === '') return false;
+    //before head
+    $fullScript = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScript();
+    $fullScriptTagManagerHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptHead();
 
-    preg_match("/<\/head>/", $html, $matches);
-    if (!empty($matches) && isset($matches[0])) {
-        $html = str_replace($matches[0], "\n".$full_script."\n".$matches[0], $html);
+    if (!empty($fullScript) || !empty($fullScriptTagManagerHead)) {
+        preg_match("/<\/head>/", $html, $matches);
+        if (!empty($matches) && isset($matches[0])) {
+            $html = str_replace($matches[0], "\n".$fullScript.$fullScriptTagManagerHead."\n".$matches[0], $html);
+        }
+    }
+
+    //after body
+    $fullScriptTagManagerBody = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptBody();
+    if (empty($fullScriptTagManagerBody)) {
+        return false;
+    }
+    preg_match("/<body[^>]*>/", $html, $matches);
+    if (!empty($fullScriptTagManagerBody) && !empty($matches) && isset($matches[0])) {
+        $html = str_replace($matches[0], $matches[0]."\n$fullScriptTagManagerBody\n", $html);
     }
 });
-Event::register('front.404NotFound', function($params)
-{
+
+Event::register('front.404NotFound', function ($params) {
     $config = Bru\Google\Seo\Tools\Controller_Admin_Config::getOptions();
     $url =& $params['url'];
     $sHtmlExtension = '.html';
@@ -93,6 +117,7 @@ Event::register('front.404NotFound', function($params)
             exit();
         }
     }
+
     return false;
 });
 

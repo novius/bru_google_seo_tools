@@ -80,6 +80,31 @@ $config = array(
                     ),
                 ),
             ),
+            100 => array(
+                'cols' => array(
+                    1 => array(
+                        'col_number' => 6,
+                        'view' => 'nos::form/expander',
+                        'params' => array(
+                            'title' => __('Paramètre google tag manager'),
+                            'options' => array(
+                                'allowExpand' => true,
+                                'expanded' => false,
+                            ),
+                            'content' => array(
+                                'view' => 'nos::form/fields',
+                                'params' => array(
+                                    'fields' => array(
+                                        'google_tagmanager_tag',
+                                        'tagmanager_full_script_head',
+                                        'tagmanager_full_script_body',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         ),
     ),
     'fields' => array(
@@ -165,6 +190,26 @@ $config = array(
                 'type' => 'checkbox',
                 'value' => '1',
                 'empty' => '0',
+            ),
+        ),
+        'google_tagmanager_tag' => array(
+            'label' => __('Tag google tag manager'),
+            'form' => array(
+                'type' => 'text',
+            ),
+        ),
+        'tagmanager_full_script_head' => array(
+            'label' => __('Script entier avant le tag &lt;&sol;head&gt;'),
+            'form' => array(
+                'type' => 'textarea',
+                'rows' => 12
+            ),
+        ),
+        'tagmanager_full_script_body' => array(
+            'label' => __('Script entier après le tag &lt;body&gt;'),
+            'form' => array(
+                'type' => 'textarea',
+                'rows' => 10
             ),
         ),
     ),
