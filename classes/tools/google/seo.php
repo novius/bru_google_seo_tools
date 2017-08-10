@@ -82,7 +82,7 @@ class Tools_Google_Seo
             return '';
         }
 
-        if ($config['tagmanager_full_script_body'] != '') {
+        if (!empty($config['tagmanager_full_script_body'])) {
             if (\Str::starts_with($config['tagmanager_full_script_body'], '<script')) {
                 $fullScript = $config['tagmanager_full_script_body'];
             } else {
@@ -115,7 +115,7 @@ class Tools_Google_Seo
             return '';
         }
 
-        if ($config['tagmanager_full_script_head'] != '') {
+        if (!empty($config['tagmanager_full_script_head'])) {
             if (\Str::starts_with($config['tagmanager_full_script_head'], '<script')) {
                 $fullScript = $config['tagmanager_full_script_head'];
             } else {
