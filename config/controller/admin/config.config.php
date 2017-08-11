@@ -1,4 +1,5 @@
 <?php
+$isProd = in_array(\Arr::get($_SERVER, 'NOS_ENV', ''), array('prod', 'production'));
 
 $config = array(
     'form_name' => __('Your Google SEO Tools'),
@@ -27,7 +28,7 @@ $config = array(
                                             'use_universal_analytics',
                                             'do_not_track_logged_user',
                                         ),
-                                        \Fuel::$env == Fuel::PRODUCTION ? array() : array('track_dev')),
+                                        ($isProd ? array() : array('track_dev'))),
                                 ),
                             ),
                         ),

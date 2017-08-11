@@ -66,7 +66,6 @@ Event::register_function('front.display', function (&$html) {
     //before head
     $fullScript = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScript();
     $fullScriptTagManagerHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptHead();
-
     if (!empty($fullScript) || !empty($fullScriptTagManagerHead)) {
         preg_match("/<\/head>/", $html, $matches);
         if (!empty($matches) && isset($matches[0])) {
