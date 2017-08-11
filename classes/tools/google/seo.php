@@ -177,11 +177,7 @@ class Tools_Google_Seo
         }
 
         //Pas de tracking en local ou en préprod
-        if (
-            (!EN_PROD || \Arr::get($_SERVER, 'NOS_ENV', '') == 'preprod')
-            &&
-            !\Arr::get($config, 'track_dev', false)
-        ) {
+        if (\Arr::get($_SERVER, 'NOS_ENV', '') !== 'prod' && !\Arr::get($config, 'track_dev', false)) {
             $full_script = '<!--'.$full_script.'-->';
 
             return $full_script;
