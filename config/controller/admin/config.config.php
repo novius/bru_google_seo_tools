@@ -1,5 +1,5 @@
 <?php
-$isProd = \Arr::get($_SERVER, 'NOS_ENV', '') === 'prod';
+$isProd = in_array(\Arr::get($_SERVER, 'NOS_ENV', ''), array('prod', 'production'));
 
 $config = array(
     'form_name' => __('Your Google SEO Tools'),
