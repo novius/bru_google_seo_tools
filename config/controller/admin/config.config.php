@@ -263,7 +263,7 @@ $config = array(
         'full_script_googleOptimize' => array(
             'label' => __('Google optimize tag (GTM-xxxxxx)'),
             'form' => array(
-                'type' => 'textarea',
+                'type' => 'text',
             ),
             'template' => '
                 <table class="fieldset">
