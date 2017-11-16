@@ -26,7 +26,7 @@ class Tools_Google_Seo
      *
      * @return string
      */
-    public static function getAnalyticsTrackingScript()
+    public static function getAnalyticsTrackingScriptHead()
     {
         $config = static::getConfig();
         if (empty($config)) {
@@ -48,6 +48,7 @@ class Tools_Google_Seo
                 $datas = array(
                     'tag' => $tag,
                     'domain' => self::getDomain(),
+                    'optimize_code' => self::getGoogleOptimizeTrackingCode(),
                 );
             } else {
                 $view = 'bru_google_seo_tools::js_tag';
@@ -63,7 +64,7 @@ class Tools_Google_Seo
         if (empty($fullScript)) {
             return '';
         } else {
-            self::_doNotTrack($fullScript);
+            self::_shouldITrack($fullScript);
 
             return (string) $fullScript;
         }
@@ -83,11 +84,7 @@ class Tools_Google_Seo
         }
 
         if (!empty($config['tagmanager_full_script_body'])) {
-            if (\Str::starts_with($config['tagmanager_full_script_body'], '<script')) {
-                $fullScript = $config['tagmanager_full_script_body'];
-            } else {
-                $fullScript = '<script type="text/javascript">'.$config['tagmanager_full_script_body'].'</script>';
-            }
+            $fullScript = $config['tagmanager_full_script_body'];
         } else {
             $tag = \Arr::get($config, 'google_tagmanager_tag');
             $fullScript = \View::forge('bru_google_seo_tools::js_tagmanager_body', compact('tag'), false);
@@ -96,10 +93,88 @@ class Tools_Google_Seo
         $fullScript = static::getCodeWithoutComment($fullScript);
 
         if (!empty($fullScript)) {
-            self::_doNotTrack($fullScript);
+            self::_shouldITrack($fullScript);
         }
 
         return (string) $fullScript;
+    }
+
+    /**
+     * Returns hotjar script
+     *
+     * @return string
+     */
+    public static function getHotjarTrackingScriptHead()
+    {
+        $config = static::getConfig();
+
+        if (empty($config['full_script_hotjar'])) {
+            return '';
+        }
+
+        $fullScript = static::getCodeWithoutComment($config['full_script_hotjar']);
+
+        if (!empty($fullScript)) {
+            self::_shouldITrack($fullScript);
+        }
+
+        return (string) $fullScript;
+    }
+
+    /**
+     * Returns Facebook pixel script
+     *
+     * @return string
+     */
+    public static function getFbPixelTrackingScriptHead()
+    {
+        $config = static::getConfig();
+
+        if (empty($config['full_script_fbPixel'])) {
+            return '';
+        }
+
+        $fullScript = static::getCodeWithoutComment($config['full_script_fbPixel']);
+
+        if (!empty($fullScript)) {
+            self::_shouldITrack($fullScript);
+        }
+
+        return (string) $fullScript;
+    }
+
+    /**
+     * Returns Twitter pixel script
+     *
+     * @return string
+     */
+    public static function getTwitterPixelTrackingScriptBody()
+    {
+        $config = static::getConfig();
+
+        if (empty($config['full_script_twitterPixel'])) {
+            return '';
+        }
+
+        $fullScript = static::getCodeWithoutComment($config['full_script_twitterPixel']);
+
+        if (!empty($fullScript)) {
+            self::_shouldITrack($fullScript);
+        }
+
+        return (string) $fullScript;
+    }
+
+    /**
+     * Returns Twitter pixel script
+     *
+     * @return string
+     */
+    public static function getGoogleOptimizeTrackingCode()
+    {
+        $config = static::getConfig();
+
+        return (string) !empty($config['full_script_googleOptimize']) ? $config['full_script_googleOptimize'] : '';
     }
 
     /**
@@ -129,7 +204,7 @@ class Tools_Google_Seo
         $fullScript = static::getCodeWithoutComment($fullScript);
 
         if (!empty($fullScript)) {
-            self::_doNotTrack($fullScript);
+            self::_shouldITrack($fullScript);
         }
 
         return (string) $fullScript;
@@ -157,7 +232,7 @@ class Tools_Google_Seo
      * Return the script embed in html comments if we are in a case that user do not want the page to appears in Google Analytics
      * @return string
      */
-    protected static function _doNotTrack(&$full_script)
+    protected static function _shouldITrack(&$full_script)
     {
         //Search the context's config. If there is not : do nothing
         $config = static::getConfig();

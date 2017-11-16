@@ -1,5 +1,5 @@
 <?php
-//Event trigger after cache is writed
+// Event will trigger after cache is written
 Event::register_function('front.response', function ($params) {
     $html =& $params['content'];
 
@@ -17,29 +17,40 @@ Event::register_function('front.response', function ($params) {
     $cookie_name = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTrackingCookieName();
     if (!empty($cookie_name)) {
         if (!\Cookie::get($cookie_name, false) || (\Cookie::get($cookie_name) != \Arr::get($config, 'tracking_cookie_value'))) {
-            //The tacking cookie is not set or his value is not good => we do not track the user.
+            //The tracking cookie is not set or his value is not good => we do not track the user.
             return false;
         }
     }
 
-    //before head
-    $fullScript = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScript();
+    // Before head
+    $fullScript = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScriptHead();
     $fullScriptTagManagerHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptHead();
+    $hotjarHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getHotjarTrackingScriptHead();
+    $facebookHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getFbPixelTrackingScriptHead();
+
     if (!empty($fullScript) || !empty($fullScriptTagManagerHead)) {
         preg_match("/<\/head>/", $html, $matches);
         if (!empty($matches) && isset($matches[0])) {
-            $html = str_replace($matches[0], "\n".$fullScript."\n".$fullScriptTagManagerHead."\n".$matches[0], $html);
+            $html = str_replace($matches[0], "\n".$fullScript."\n".$fullScriptTagManagerHead."\n".$hotjarHead."\n".$facebookHead."\n".$matches[0], $html);
         }
     }
 
-    //after body
+    // After body
     $fullScriptTagManagerBody = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptBody();
+    $twitterEndBody = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTwitterPixelTrackingScriptBody();
+
     if (empty($fullScriptTagManagerBody)) {
         return false;
     }
+
     preg_match("/<body[^>]*>/", $html, $matches);
     if (!empty($fullScriptTagManagerBody) && !empty($matches) && isset($matches[0])) {
         $html = str_replace($matches[0], $matches[0]."\n$fullScriptTagManagerBody\n", $html);
+    }
+
+    preg_match("/<\/body>/", $html, $closingTag);
+    if (!empty($closingTag) && isset($closingTag[0])) {
+        $html = str_replace($closingTag[0], "\n$twitterEndBody\n".$closingTag[0], $html);
     }
 });
 
@@ -63,24 +74,35 @@ Event::register_function('front.display', function (&$html) {
         return false;
     }
 
-    //before head
-    $fullScript = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScript();
+    // Before head
+    $fullScript = \Bru\Google\Seo\Tools\Tools_Google_Seo::getAnalyticsTrackingScriptHead();
     $fullScriptTagManagerHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptHead();
+    $hotjarHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getHotjarTrackingScriptHead();
+    $facebookHead = \Bru\Google\Seo\Tools\Tools_Google_Seo::getFbPixelTrackingScriptHead();
+
     if (!empty($fullScript) || !empty($fullScriptTagManagerHead)) {
         preg_match("/<\/head>/", $html, $matches);
         if (!empty($matches) && isset($matches[0])) {
-            $html = str_replace($matches[0], "\n".$fullScript.$fullScriptTagManagerHead."\n".$matches[0], $html);
+            $html = str_replace($matches[0], "\n".$fullScript.$fullScriptTagManagerHead."\n".$hotjarHead."\n".$facebookHead."\n"."\n".$matches[0], $html);
         }
     }
 
-    //after body
+    // After body
     $fullScriptTagManagerBody = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTagmanagerTrackingScriptBody();
+    $twitterEndBody = \Bru\Google\Seo\Tools\Tools_Google_Seo::getTwitterPixelTrackingScriptBody();
+
     if (empty($fullScriptTagManagerBody)) {
         return false;
     }
+
     preg_match("/<body[^>]*>/", $html, $matches);
     if (!empty($fullScriptTagManagerBody) && !empty($matches) && isset($matches[0])) {
         $html = str_replace($matches[0], $matches[0]."\n$fullScriptTagManagerBody\n", $html);
+    }
+
+    preg_match("/<\/body>/", $html, $closingTag);
+    if (!empty($closingTag) && isset($closingTag[0])) {
+        $html = str_replace($closingTag[0], "\n$twitterEndBody\n".$closingTag[0], $html);
     }
 });
 

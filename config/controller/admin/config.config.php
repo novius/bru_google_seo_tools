@@ -21,14 +21,11 @@ $config = array(
                             'content' => array(
                                 'view' => 'nos::form/fields',
                                 'params' => array(
-                                    'fields' => \Arr::merge(
-                                        array(
-                                            'google_analytics_tag',
-                                            'full_script',
-                                            'use_universal_analytics',
-                                            'do_not_track_logged_user',
-                                        ),
-                                        ($isProd ? array() : array('track_dev'))),
+                                    'fields' => array(
+                                        'google_analytics_tag',
+                                        'full_script',
+                                        'use_universal_analytics',
+                                    ),
                                 ),
                             ),
                         ),
@@ -37,7 +34,7 @@ $config = array(
                         'col_number' => 6,
                         'view' => 'nos::form/expander',
                         'params' => array(
-                            'title'   => __('Google webmaster tools'),
+                            'title'   => __('General parameters'),
                             'options' => array(
                                 'allowExpand' => false,
                             ),
@@ -45,10 +42,8 @@ $config = array(
                                 'view' => 'nos::form/fields',
                                 'params' => array(
                                     'fields' => array(
-                                        'label_verification',
-                                        'google_site_verification_html',
-                                        'label_or',
-                                        'google_site_verification',
+                                        'do_not_track_logged_user',
+                                        'track_dev',
                                     ),
                                 ),
                             ),
@@ -56,32 +51,7 @@ $config = array(
                     ),
                 ),
             ),
-            99 => array(
-                'cols' => array(
-                    1 => array(
-                        'col_number' => 6,
-                        'view' => 'nos::form/expander',
-                        'params' => array(
-                            'title'   => __('Paramètres expert'),
-                            'options' => array(
-                                'allowExpand' => true,
-                                'expanded' => false,
-                            ),
-                            'content' => array(
-                                'view' => 'nos::form/fields',
-                                'params' => array(
-                                    'fields' => array(
-                                        'label_cookie_tracking',
-                                        'tracking_cookie_name',
-                                        'tracking_cookie_value',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            100 => array(
+            2 => array(
                 'cols' => array(
                     1 => array(
                         'col_number' => 6,
@@ -104,6 +74,137 @@ $config = array(
                             ),
                         ),
                     ),
+                    2 => array(
+                        'col_number' => 6,
+                        'view' => 'nos::form/expander',
+                        'params' => array(
+                            'title'   => __('Paramètres expert'),
+                            'options' => array(
+                                'allowExpand' => true,
+                                'expanded' => false,
+                            ),
+                            'content' => array(
+                                'view' => 'nos::form/fields',
+                                'params' => array(
+                                    'fields' => array(
+                                        'label_cookie_tracking',
+                                        'tracking_cookie_name',
+                                        'tracking_cookie_value',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            3 => array(
+                'cols' => array(
+                    1 => array(
+                        'col_number' => 6,
+                        'view' => 'nos::form/expander',
+                        'params' => array(
+                            'title'   => __('Hotjar parameters'),
+                            'options' => array(
+                                'allowExpand' => true,
+                                'expanded' => false,
+                            ),
+                            'content' => array(
+                                'view' => 'nos::form/fields',
+                                'params' => array(
+                                    'fields' => array(
+                                        'full_script_hotjar',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    2 => array(
+                        'col_number' => 6,
+                        'view' => 'nos::form/expander',
+                        'params' => array(
+                            'title'   => __('Google webmaster tools'),
+                            'options' => array(
+                                'allowExpand' => true,
+                                'expanded' => false,
+                            ),
+                            'content' => array(
+                                'view' => 'nos::form/fields',
+                                'params' => array(
+                                    'fields' => array(
+                                        'label_verification',
+                                        'google_site_verification_html',
+                                        'label_or',
+                                        'google_site_verification',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            4 => array(
+                'cols' => array(
+                    1 => array(
+                        'col_number' => 6,
+                        'view' => 'nos::form/expander',
+                        'params' => array(
+                            'title'   => __('Facebook Pixel'),
+                            'options' => array(
+                                'allowExpand' => true,
+                                'expanded' => false,
+                            ),
+                            'content' => array(
+                                'view' => 'nos::form/fields',
+                                'params' => array(
+                                    'fields' => array(
+                                        'full_script_fbPixel',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    2 => array(
+                        'col_number' => 6,
+                        'view' => 'nos::form/expander',
+                        'params' => array(
+                            'title'   => __('Google optimize parameters'),
+                            'options' => array(
+                                'allowExpand' => true,
+                                'expanded' => false,
+                            ),
+                            'content' => array(
+                                'view' => 'nos::form/fields',
+                                'params' => array(
+                                    'fields' => array(
+                                        'full_script_googleOptimize',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            100 => array(
+                'cols' => array(
+                    1 => array(
+                        'col_number' => 6,
+                        'view' => 'nos::form/expander',
+                        'params' => array(
+                            'title'   => __('Twitter Pixel'),
+                            'options' => array(
+                                'allowExpand' => true,
+                                'expanded' => false,
+                            ),
+                            'content' => array(
+                                'view' => 'nos::form/fields',
+                                'params' => array(
+                                    'fields' => array(
+                                        'full_script_twitterPixel',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),
@@ -120,6 +221,61 @@ $config = array(
             'form' => array(
                 'type' => 'textarea',
             ),
+        ),
+        'full_script_hotjar' => array(
+            'label' => __('Script entier'),
+            'form' => array(
+                'type' => 'textarea',
+            ),
+        ),
+        'full_script_fbPixel' => array(
+            'label' => __('Script entier'),
+            'form' => array(
+                'type' => 'textarea',
+            ),
+            'template' => '            
+            <table class="fieldset">
+            <tbody>
+                <tr>
+                    <td class="">{label}</td>
+			        <td class="">{field}</td>
+			    </tr>
+			</tbody>
+			</table>
+			<p>Valable uniquement pour le script Website tag universel. La mise en place d\'un script Website tag d\'événement unique nécessite une intervention sur mesure. Contacter votre chef de projet Novius.</p>',
+        ),
+        'full_script_twitterPixel' => array(
+            'label' => __('Script entier'),
+            'form' => array(
+                'type' => 'textarea',
+            ),
+            'template' => '            
+            <table class="fieldset">
+            <tbody>
+                <tr>
+                    <td class="">{label}</td>
+			        <td class="">{field}</td>
+			    </tr>
+			</tbody>
+			</table>
+			<p>Valable uniquement pour le script Website tag universel. La mise en place d\'un script Website tag d\'événement unique nécessite une intervention sur mesure. Contacter votre chef de projet Novius.</p>',
+        ),
+        'full_script_googleOptimize' => array(
+            'label' => __('Google optimize tag (GTM-xxxxxx)'),
+            'form' => array(
+                'type' => 'textarea',
+            ),
+            'template' => '
+                <table class="fieldset">
+                <tbody>
+                    <tr>
+                        <td class="">{label}</td>
+                        <td class="">{field}</td>
+                    </tr>
+                </tbody>
+                </table>
+                <p>ATTENTION : nécéssite impérativement l\'utilisation d\'Universal Analytics. Ne peut pas être configuré sans avoir configuré Google Analytics settings. Si vous avez utilisé le champ full script, ne pas utiliser ce module mais insérer la ligne de code tel qu\'indique par Google Optimize.</p>
+            ',
         ),
         'label_verification' => array(
             'label' => '<strong>'.__('Méthode de vérification du site').'</strong>',
