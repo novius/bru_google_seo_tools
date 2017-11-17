@@ -1,5 +1,4 @@
 <?php
-$isProd = in_array(\Arr::get($_SERVER, 'NOS_ENV', ''), array('prod', 'production'));
 
 $config = array(
     'form_name' => __('Your Google SEO Tools'),
@@ -24,7 +23,6 @@ $config = array(
                                     'fields' => array(
                                         'google_analytics_tag',
                                         'full_script',
-                                        'use_universal_analytics',
                                     ),
                                 ),
                             ),
@@ -214,51 +212,60 @@ $config = array(
             'label' => __('Tag google analytics'),
             'form' => array(
                 'type' => 'text',
+                'rows' => '12',
             ),
         ),
         'full_script' => array(
             'label' => __('Script entier'),
             'form' => array(
                 'type' => 'textarea',
+                'rows' => '12',
             ),
         ),
         'full_script_hotjar' => array(
             'label' => __('Script entier'),
             'form' => array(
                 'type' => 'textarea',
+                'rows' => '12',
             ),
         ),
         'full_script_fbPixel' => array(
             'label' => __('Script entier'),
             'form' => array(
                 'type' => 'textarea',
+                'rows' => '12',
             ),
             'template' => '            
-            <table class="fieldset">
-            <tbody>
-                <tr>
-                    <td class="">{label}</td>
-			        <td class="">{field}</td>
-			    </tr>
-			</tbody>
-			</table>
-			<p>Valable uniquement pour le script Website tag universel. La mise en place d\'un script Website tag d\'événement unique nécessite une intervention sur mesure. Contacter votre chef de projet Novius.</p>',
+                <table class="fieldset">
+                    <tbody>
+                        <tr>
+                            <td class="">{label}</td>
+                            <td class="">{field}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <p>'. __('Valable uniquement pour le script de suivi des pages vues. La mise en place d\'un script Facebook Pixel sur des pages précises ou pour le déclenchement d\'évènements particlulier nécessite une intervention sur mesure. Contacter votre chef de projet Novius.') . '</p>
+			',
         ),
         'full_script_twitterPixel' => array(
             'label' => __('Script entier'),
             'form' => array(
                 'type' => 'textarea',
+                'rows' => '12',
             ),
             'template' => '            
-            <table class="fieldset">
-            <tbody>
-                <tr>
-                    <td class="">{label}</td>
-			        <td class="">{field}</td>
-			    </tr>
-			</tbody>
-			</table>
-			<p>Valable uniquement pour le script Website tag universel. La mise en place d\'un script Website tag d\'événement unique nécessite une intervention sur mesure. Contacter votre chef de projet Novius.</p>',
+                <table class="fieldset">
+                    <tbody>
+                        <tr>
+                            <td class="">{label}</td>
+                            <td class="">{field}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <p>'. __('Valable uniquement pour le script Website tag universel. La mise en place d\'un script Website tag d\'événement unique nécessite une intervention sur mesure. Contacter votre chef de projet Novius.') . '</p>
+			',
         ),
         'full_script_googleOptimize' => array(
             'label' => __('Google optimize tag (GTM-xxxxxx)'),
@@ -267,14 +274,15 @@ $config = array(
             ),
             'template' => '
                 <table class="fieldset">
-                <tbody>
-                    <tr>
-                        <td class="">{label}</td>
-                        <td class="">{field}</td>
-                    </tr>
-                </tbody>
+                    <tbody>
+                        <tr>
+                            <td class="">{label}</td>
+                            <td class="">{field}</td>
+                        </tr>
+                    </tbody>
                 </table>
-                <p>ATTENTION : nécéssite impérativement l\'utilisation d\'Universal Analytics. Ne peut pas être configuré sans avoir configuré Google Analytics settings. Si vous avez utilisé le champ full script, ne pas utiliser ce module mais insérer la ligne de code tel qu\'indique par Google Optimize.</p>
+                <br/>
+                <p>'. __('ATTENTION : nécéssite impérativement l\'utilisation d\'Universal Analytics. Ne peut pas être configuré sans avoir configuré Google Analytics settings. Si vous avez utilisé le champ full script, ne pas utiliser ce module mais insérer la ligne de code tel qu\'indique par Google Optimize.') . '</p>
             ',
         ),
         'label_verification' => array(
@@ -301,14 +309,6 @@ $config = array(
             'label' => __('Nom de la page html de vérification'),
             'form' => array(
                 'type' => 'text',
-            ),
-        ),
-        'use_universal_analytics' => array(
-            'label' => __('Utiliser Universal analytics'),
-            'form' => array(
-                'type' => 'checkbox',
-                'value' => '1',
-                'empty' => '0',
             ),
         ),
         'label_cookie_tracking' => array(

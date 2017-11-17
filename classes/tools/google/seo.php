@@ -33,30 +33,23 @@ class Tools_Google_Seo
             return '';
         }
 
-        if (!empty($config['full_script'])) {
+        if (!empty($config['google_analytics_tag'])) {
+            $tag = \Arr::get($config, 'google_analytics_tag');
+            $view = 'bru_google_seo_tools::js_tag_universal_analitycs';
+            $datas = array(
+                'tag' => $tag,
+                'domain' => self::getDomain(),
+                'optimize_code' => self::getGoogleOptimizeTrackingCode(),
+            );
+            $fullScript = \View::forge($view, $datas, false);
+        } elseif (!empty($config['full_script'])) {
             if (\Str::starts_with($config['full_script'], '<script')) {
                 $fullScript = $config['full_script'];
             } else {
                 $fullScript = '<script type="text/javascript">'.$config['full_script'].'</script>';
             }
         } else {
-            $tag = \Arr::get($config, 'google_analytics_tag');
-            if (empty($tag)) return '';
-
-            if (\Arr::get($config, 'use_universal_analytics')) {
-                $view = 'bru_google_seo_tools::js_tag_universal_analitycs';
-                $datas = array(
-                    'tag' => $tag,
-                    'domain' => self::getDomain(),
-                    'optimize_code' => self::getGoogleOptimizeTrackingCode(),
-                );
-            } else {
-                $view = 'bru_google_seo_tools::js_tag';
-                $datas = array(
-                    'tag' => $tag,
-                );
-            }
-            $fullScript = \View::forge($view, $datas, false);
+            return '';
         }
 
         $fullScript = static::getCodeWithoutComment($fullScript);
@@ -237,21 +230,21 @@ class Tools_Google_Seo
         //Search the context's config. If there is not : do nothing
         $config = static::getConfig();
 
-        //No tracking if it's a preview
+        // If it's a preview we'll disable tracking
         if (\Nos\Nos::main_controller()->isPreview()) {
             $full_script = '<!--'.$full_script.'-->';
 
             return $full_script;
         }
 
-        //No script if we do not want logged in users to be tracked
+        // If we dont want to track users who are logged-in
         if (\Arr::get($config, 'do_not_track_logged_user', 0) && \Nos\Auth::check()) {
             $full_script = '<!--'.$full_script.'-->';
 
             return $full_script;
         }
 
-        //Pas de tracking en local ou en préprod
+        // Pas de tracking en local ou en préprod
         if (!in_array(\Arr::get($_SERVER, 'NOS_ENV', ''), array('prod', 'production')) && !\Arr::get($config, 'track_dev', false)) {
             $full_script = '<!--'.$full_script.'-->';
 

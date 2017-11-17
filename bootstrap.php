@@ -1,5 +1,5 @@
 <?php
-// Event will trigger after cache is written
+// Event triggered after cache has been written
 Event::register_function('front.response', function ($params) {
     $html =& $params['content'];
 
@@ -68,7 +68,7 @@ Event::register('front.pageFound', function ($params) {
     }
 });
 
-//Event trigger before cache is writed
+// Event triggered before cache is written
 Event::register_function('front.display', function (&$html) {
     if (\Bru\Google\Seo\Tools\Tools_Google_Seo::trackingAfterCache()) {
         return false;

@@ -19,4 +19,9 @@ return array(
     'Activer en développement' => 'Activate on development mode',
     'Script entier avant le tag &lt;&sol;head&gt;' => 'Full script before the &lt;&sol;head&gt; tag',
     'Script entier après le tag &lt;body&gt;' => 'Full script after the &lt;body&gt; tag',
-);
+    'Valable uniquement pour le script de suivi des pages vues. La mise en place d’un script Facebook Pixel sur des pages précises ou pour le déclenchement d’évènements particlulier nécessite une intervention sur mesure. Contacter votre chef de projet Novius.' => 'For a specific request, ask a Novius Manager',
+    'Valable uniquement pour le script Website tag universel. La mise en place d\'un script Website tag d\'événement unique nécessite une intervention sur mesure. Contacter votre chef de projet Novius.' => 'For a specific request, ask a Novius Manager',
+    'ATTENTION : nécéssite impérativement l\'utilisation d\'Universal Analytics. Ne peut pas être configuré sans avoir configuré Google Analytics settings. Si vous avez utilisé le champ full script, ne pas utiliser ce module mais insérer la ligne de code tel qu\'indique par Google Optimize.' => 'Require an universal analytics account',
+    'Vous devez renseigner le champ "Google Analytics Tag" avant de paramétrer Optimize.' => 'You should fill "Google Analytics Tag" before using Optimize',
+    'Vous devez ajouter manuellement le code ga(\'require \', \'GTM - xxxxxx\'); dans le champs Full script Google Analytics.' => 'You should manualy add the code ga(\'require \', \'GTM - xxxxxx\'), in the Full script Google Analytics field',
+    );
