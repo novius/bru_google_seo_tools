@@ -18,7 +18,7 @@ class Controller_Admin_Config extends \Lib\Options\Controller_Admin_Options
 
             if (empty($_POST['google_analytics_tag']) && empty($_POST['full_script'])) {
                 $return = array(
-                    'error' => __('Vous devez renseigner le champ "Google Analytics Tag" avant de paramétrer Optimize.'),
+                    'error' => __('You must fill "Google Analytics Tag" before using Optimize.'),
                 );
 
                 return \Format::forge($return)->to_json();
@@ -26,7 +26,7 @@ class Controller_Admin_Config extends \Lib\Options\Controller_Admin_Options
 
             if (empty($_POST['google_analytics_tag']) && !empty($_POST['full_script'])) {
                 $return = array(
-                    'error' =>  __('Vous devez ajouter manuellement le code ga(\'require\', \'GTM-xxxxxx\'); dans le champs Full script Google Analytics.'),
+                    'error' =>  __('You should manualy add the code ga(\'require \', \'GTM - xxxxxx\'), in the Full script Google Analytics field.'),
                 );
 
                 return \Format::forge($return)->to_json();

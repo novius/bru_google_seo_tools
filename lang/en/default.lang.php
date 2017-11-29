@@ -1,27 +1,34 @@
 <?php
 
 return array(
-    'Your Google SEO Tools' => 'Your Google SEO Tools',
-    'Paramètres Google Analytics' => 'Google Analytics settings',
-    'Google webmaster tools' => 'Google webmaster tools',
-    'Paramètres expert' => 'Expert parameter',
-    'Tag google analytics' => 'Google Analytics tag',
-    'Script entier' => 'Full script',
-    'Méthode de vérification du site' => 'Website verification method',
-    'Contenu de la balise meta' => 'Meta tag content',
-    'OU (utiliser les deux méthodes est inutile)' => 'OR (using these two methods is useless)',
-    'Nom de la page html de vérification' => 'Name of the HTML verification page',
-    'Utiliser Universal analytics' => 'Use Universal analytics',
-    'Cookie de tracking' => 'Tracking cookie',
-    'Nom du cookie' => 'Cookie name',
-    'Valeur du cookie' => 'Cookie value',
-    'Exclure les administrateurs' => 'Exclude administrators',
-    'Activer en développement' => 'Activate on development mode',
-    'Script entier avant le tag &lt;&sol;head&gt;' => 'Full script before the &lt;&sol;head&gt; tag',
-    'Script entier après le tag &lt;body&gt;' => 'Full script after the &lt;body&gt; tag',
-    'Valable uniquement pour le script de suivi des pages vues. La mise en place d’un script Facebook Pixel sur des pages précises ou pour le déclenchement d’évènements particlulier nécessite une intervention sur mesure. Contacter votre chef de projet Novius.' => 'For a specific request, ask a Novius Manager',
-    'Valable uniquement pour le script Website tag universel. La mise en place d\'un script Website tag d\'événement unique nécessite une intervention sur mesure. Contacter votre chef de projet Novius.' => 'For a specific request, ask a Novius Manager',
-    'ATTENTION : nécéssite impérativement l\'utilisation d\'Universal Analytics. Ne peut pas être configuré sans avoir configuré Google Analytics settings. Si vous avez utilisé le champ full script, ne pas utiliser ce module mais insérer la ligne de code tel qu\'indique par Google Optimize.' => 'Require an universal analytics account',
-    'Vous devez renseigner le champ "Google Analytics Tag" avant de paramétrer Optimize.' => 'You should fill "Google Analytics Tag" before using Optimize',
-    'Vous devez ajouter manuellement le code ga(\'require \', \'GTM - xxxxxx\'); dans le champs Full script Google Analytics.' => 'You should manualy add the code ga(\'require \', \'GTM - xxxxxx\'), in the Full script Google Analytics field',
-    );
+    'Your SEO Tools' => 'Your SEO Tools',
+    'Google SEO Tools' => 'Google SEO Tools',
+    'General settings' => 'General settings',
+    'Expert settings' => 'Expert settings',
+    'Google Analytics' => 'Google Analytics',
+    'Google Tag Manager' => 'Google Tag Manager',
+    'Google Webmaster Tools' => 'Google Webmaster Tools',
+    'Google Optimize' => 'Google Optimize',
+    'Hotjar' => 'Hotjar',
+    'Facebook Pixel' => 'Facebook Pixel',
+    'Twitter Pixel' => 'Twitter Pixel',
+    'Tracking ID (UA-xxxxxx-x)' => 'Tracking ID (UA-xxxxxx-x)',
+    'Container ID (GTM-xxxxxx)' => 'Container ID (GTM-xxxxxx)',
+    'Valid only for the page tracking script. Setting up a Facebook Pixel script on specific pages or for the triggering of particular events requires a tailor-made intervention. Contact your Project Manager.' => 'Valid only for the page tracking script. Setting up a Facebook Pixel script on specific pages or for the triggering of particular events requires a tailor-made intervention. Contact your Project Manager.',
+    'Valid only for the universal website tag script. Setting up a website tag script for particular events requires a tailor-made intervention. Contact your Project Manager.' => 'Valid only for the universal website tag script. Setting up a website tag script for particular events requires a tailor-made intervention. Contact your Project Manager.',
+    'WARNING: It is imperative to use Universal Analytics. Can not be configured without setting up Google Analytics. If you have filled in the "Full script" field, do not use this module but instead insert the line of code provided by Google Optimize.' => 'WARNING: It is imperative to use Universal Analytics. Can not be configured without setting up Google Analytics. If you have filled in the "Full script" field, do not use this module but instead insert the line of code provided by Google Optimize.',
+    'Website verification method' => 'Website verification method',
+    'Meta tag content' => 'Meta tag content', //'Contenu de la balise meta',
+    'OR (using both at same time is useless) :' => 'OR (using both at same time is useless) :', // => 'OU (utiliser les deux méthodes est inutile)',
+    'Name of the HTML verification page' => 'Name of the HTML verification page', //'Nom de la page html de vérification',
+    'User tracking consent cookie :' => 'User tracking consent cookie :', // Cookie de consentement de l'utilisateur
+    'Cookie name' => 'Cookie name', // Nom du cookie
+    'Cookie value' => 'Cookie value', // Valeur du cookie
+    'To use the consent cookie of the application Novius Cookie Banner, set "novius_cookies_banner" as the name and "true" as the value.' => 'To use the consent cookie of the application Novius Cookie Banner, set "novius_cookies_banner" as the name and "true" as the value.', // Pour utiliser le cookie de consentement de l'application Novius Cookie Banner, mettez "novius_cookies_banner" comme nom et "true" comme valeur.
+    'Exclude administrators' => 'Exclude administrators', // Exclure les administrateurs
+    'Activate on development mode' => 'Activate on development mode', // Activer en développement
+    'Full script before the &lt;&sol;head&gt; tag' => 'Full script before the &lt;&sol;head&gt; tag', // Script entier avant le tag &lt;&sol;head&gt;
+    'Full script after the &lt;body&gt; tag' => 'Full script after the &lt;body&gt; tag', // Script entier après le tag &lt;body&gt;
+    'You must fill "Google Analytics Tag" before using Optimize' => 'You must fill "Google Analytics Tag" before using Optimize.', // Vous devez renseigner le champ "Google Analytics Tag" avant de paramétrer Optimize.
+    'You should manualy add the code ga(\'require \', \'GTM - xxxxxx\'), in the Full script Google Analytics field.' => 'You should manualy add the code ga(\'require \', \'GTM - xxxxxx\'), in the Full script Google Analytics field.', // Vous devez ajouter manuellement le code ga('require ', 'GTM - xxxxxx'); dans le champs Full script Google Analytics.
+);
