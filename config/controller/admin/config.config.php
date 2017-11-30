@@ -389,14 +389,14 @@ return array(
             'expert' => true,
         ),
         'tracking_cookie_name' => array(
-            'label' => __('Expected cookie name'),
+            'label' => __('Cookie name'),
             'form' => array(
                 'type' => 'text',
             ),
             'expert' => true,
         ),
         'tracking_cookie_value' => array(
-            'label' => __('Expected cookie value'),
+            'label' => __('Cookie value'),
             'form' => array(
                 'type' => 'text',
             ),
