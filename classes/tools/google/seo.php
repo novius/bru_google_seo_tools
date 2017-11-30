@@ -247,12 +247,12 @@ class Tools_Google_Seo
     public static function injectTrackingScripts($html)
     {
         // Injects tracking scripts before </head>
-        $html = Tools_Google_Seo::injectCodeAtHeadEnd($html, implode("\n\n", array_filter(array(
+        $html = Tools_Google_Seo::injectCodeAtHeadEnd($html, array_filter(array(
             Tools_Google_Seo::getAnalyticsTrackingScriptHead(),
             Tools_Google_Seo::getTagmanagerTrackingScriptHead(),
             Tools_Google_Seo::getHotjarTrackingScriptHead(),
             Tools_Google_Seo::getFbPixelTrackingScriptHead(),
-        ))));
+        )));
 
         // Injects tracking scripts after <body>
         $html = Tools_Google_Seo::injectCodeAtBodyStart($html, Tools_Google_Seo::getTagmanagerTrackingScriptBody());
